@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa-IR">
+
+<head>
+    <% include ../partials/head %>
+    <style>
+        .hide {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body class="header-light sidebar-dark sidebar-expand" oncontextmenu="return false">
+<div id="wrapper" class="wrapper">
+    <!-- HEADER & TOP NAVIGATION -->
+    <!-- .navbar -->
+    <% include ../partials/navbar %>
+    <!-- /.navbar -->
+    <div class="content-wrapper">
+        <!-- SIDEBAR -->
+        <% include ../partials/aside %>
+        <!-- /.site-sidebar -->
+        <!-- SIDEBAR -->
+        <main class="main-wrapper clearfix">
+            <!-- Page Title Area -->
+            <div class="row page-title clearfix">
+                <div class="page-title-left">
+                    <h5 class="mr-0 mr-r-5">Tabs</h5>
+                    <p class="mr-0 text-muted d-none d-md-inline-block">statistics, charts, events and reports</p>
+                </div>
+                <!-- /.page-title-left -->
+                <div class="page-title-right d-inline-flex">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active">Tabs</li>
+                    </ol>
+                    <div class="d-none d-sm-inline-flex justify-center align-items-center"><a href="javascript: void(0);" class="btn btn-outline-primary mr-l-20 btn-sm btn-rounded hidden-xs hidden-sm ripple" target="_blank">Buy Now</a>
+                    </div>
+                </div>
+                <!-- /.page-title-right -->
+            </div>
+            <!-- /.page-title -->
+            <!-- =================================== -->
+            <!-- Different data widgets ============ -->
+            <!-- =================================== -->
+            <div class="widget-list">
+                <div class="row">
+                    <!-- Tabs Bordered -->
+                    <div class="col-md-12 widget-holder">
+                        <div class="widget-bg">
+                            <div class="widget-body clearfix">
+                                <h5 class="box-title">Tabs Bordered</h5>
+                                <div class="tabs tabs-bordered">
+                                    <ul class="nav nav-tabs">
+                                        <% a=0; if(Categories.length > 0){  %>
+                                            <% Categories.forEach(function(category) { a++; %>
+                                                <li class="nav-item">
+                                                    <a class="nav-link <% if(a == 1 ){ %> active <% } %>" href="#tab-bordered-<%= a%>" data-toggle="tab" aria-expanded="true" id="<%= a%>"><%= category.category %></a>
+                                                </li>
+                                            <% }); %>
+                                        <% } %>
+                                        <% if(Categories.length == a || Categories.length == 0){ a++; %>
+                                            <li class="nav-item">
+                                                <a class="nav-link  <% if(a != 1 ){ %> hide<% } else if (a == 1) {%> active <% } %>" href="#tab-bordered-<%= a%>" data-toggle="tab" aria-expanded="true" id="<%= a%>">پایان آموزش ها</a>
+                                            </li>
+                                        <% } %>
+                                    </ul>
+                                    <!-- /.nav-tabs -->
+                                    <div class="tab-content">
+                                        <% b=0; if(Categories.length > 0){  %>
+                                            <% Categories.forEach(function(category) { b++; %>
+                                                <div class="tab-pane <% if(b == 1 ){ %> active <% } %>" id="tab-bordered-<%= b%>">
+                                                    <% category.lesson.forEach(function(Lesson) { %>
+                                                        <h3><%= Lesson.subject %></h3>
+                                                        <%- Lesson.content -%>
+                                                        <img src="<%= Lesson.pic %>" alt="<%= Lesson.subject %>" style="display: block; margin: 30px auto 0;">
+                                                    <% }); %>
+                                                    <div style="display: table; margin: 20px auto 0;">
+                                                        <button class="btn btn-info mr-r-10 mr-b-10" id="next<%= category._id%>" style="padding: 8px 30px;">next</button>
+                                                    </div>
+                                                </div>
+                                            <% }); %>
+                                        <% } %>
+                                        <% if(Categories.length == b || Categories.length == 0){ b++;%>
+                                            <div class="tab-pane <% if(a != 1 ){ %> hide<% } else if (a == 1) {%> active <% } %>" id="tab-bordered-<%= b%>">
+                                                <div style="display: table; margin: 20px auto 0;">
+                                                    <form action="/dashboard/lesson" method="POST">
+                                                        <input class="btn btn-info mr-r-10 mr-b-10" style="padding: 8px 30px;" type="submit" name="done" value="مرحله بعد">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                    <!-- /.tab-content -->
+                                </div>
+                                <!-- /.tabs -->
+                            </div>
+                            <!-- /.widget-body -->
+                        </div>
+                        <!-- /.widget-bg -->
+                    </div>
+                    <!-- /.widget-holder -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.widget-list -->
+        </main>
+        <!-- /.main-wrappper -->
+        <!-- RIGHT SIDEBAR -->
+        <aside class="right-sidebar scrollbar-enabled">
+            <div class="sidebar-chat" data-plugin="chat-sidebar">
+                <div class="sidebar-chat-info">
+                    <h3>Chat</h3>
+                    <p class="text-muted">You can chat with your family and friends in this space.</p>
+                </div>
+                <div class="chat-list">
+                    <h6 class="sidebar-chat-subtitle">Online</h6>
+                    <div class="list-group row">
+                        <a href="javascript:void(0)" class="list-group-item user--online thumb-xs" data-chat-user="Julein Renvoye">
+                            <img src="assets/demo/users/user1.jpg" class="rounded-circle" alt=""> <span class="name">Julien Renvoye</span>  <span class="username">@jrenvoye</span>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item user--online thumb-xs" data-chat-user="Eddie Lebanovkiy">
+                            <img src="assets/demo/users/user2.jpg" class="rounded-circle" alt=""> <span class="name">Eddie Lebanovskiy</span>  <span class="username">@elebano</span>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item user--away thumb-xs" data-chat-user="Cameron Moll">
+                            <img src="assets/demo/users/user3.jpg" class="rounded-circle" alt=""> <span class="name">Cameron Moll</span>  <span class="username">@cammoll</span>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item user--busy thumb-xs" data-chat-user="Bill S Kenny">
+                            <img src="assets/demo/users/user7.jpg" class="rounded-circle" alt=""> <span class="name">Bill S Kenny</span>  <span class="username">@billsk</span>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item user--busy thumb-xs" data-chat-user="Trent Walton">
+                            <img src="assets/demo/users/user6.jpg" class="rounded-circle" alt=""> <span class="name">Trent Walton</span>  <span class="username">@trentwalton</span>
+                        </a>
+                    </div>
+                    <!-- /.list-group -->
+                </div>
+                <!-- /.chat-list -->
+                <div class="chat-list">
+                    <h6 class="sidebar-chat-subtitle">Offline</h6>
+                    <div class="list-group row">
+                        <a href="javascript:void(0)" class="list-group-item user--offline thumb-xs" data-chat-user="Julien Renvoye">
+                            <img src="assets/demo/users/user1.jpg" class="rounded-circle" alt=""> <span class="name">Julien Renvoye</span>  <span class="username">@jrenvoye</span>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item user--offline thumb-xs" data-chat-user="Eddie Lebaovskiy">
+                            <img src="assets/demo/users/user2.jpg" class="rounded-circle" alt=""> <span class="name">Eddie Lebanovskiy</span>  <span class="username">@elebano</span>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item user--offline thumb-xs" data-chat-user="Cameron Moll">
+                            <img src="assets/demo/users/user3.jpg" class="rounded-circle" alt=""> <span class="name">Cameron Moll</span>  <span class="username">@cammoll</span>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item user--offline thumb-xs" data-chat-user="Bill S Kenny">
+                            <img src="assets/demo/users/user7.jpg" class="rounded-circle" alt=""> <span class="name">Bill S Kenny</span>  <span class="username">@billsk</span>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item user--offline thumb-xs" data-chat-user="Trent Walton">
+                            <img src="assets/demo/users/user6.jpg" class="rounded-circle" alt=""> <span class="name">Trent Walton</span>  <span class="username">@trentwalton</span>
+                        </a>
+                    </div>
+                    <!-- /.list-group -->
+                </div>
+                <!-- /.chat-list -->
+            </div>
+            <!-- /.sidebar-chat -->
+        </aside>
+        <!-- CHAT PANEL -->
+        <div class="chat-panel" hidden>
+            <div class="card">
+                <div class="card-header">
+                    <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <button type="button" class="minimize" aria-label="Minimize"><span aria-hidden="true"><i class="material-icons">expand_more</i></span>
+                    </button> <span class="user-name">John Doe</span>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-block custom-scroll">
+                    <div class="messages custom-scroll-content scrollbar-enabled">
+                        <div class="current-user-message">
+                            <img class="user-image" width="30" height="30" src="assets/demo/users/user1.jpg" alt="">
+                            <div class="message">
+                                <p>Lorem ipsum dolor sit amet?</p><small>10:00 am</small>
+                            </div>
+                            <!-- /.message -->
+                        </div>
+                        <!-- /.current-user-message -->
+                        <div class="other-user-message">
+                            <img class="user-image" width="30" height="30" src="assets/demo/users/user2.jpg" alt="">
+                            <div class="message">
+                                <p>Etiam rhoncus. Maecenas tempus, tellus eget condi mentum rhoncus</p><small>10:00 am</small>
+                            </div>
+                            <!-- /.message -->
+                        </div>
+                        <!-- /.other-user-message -->
+                        <div class="current-user-message">
+                            <img class="user-image" width="30" height="30" src="assets/demo/users/user1.jpg" alt="">
+                            <div class="message">
+                                <img src="assets/demo/chat-message.jpg" alt=""> <small>10:00 am</small>
+                            </div>
+                            <!-- .,message -->
+                        </div>
+                        <!-- /.current-user-message -->
+                        <div class="current-user-message">
+                            <img class="user-image" width="30" height="30" src="assets/demo/users/user1.jpg" alt="">
+                            <div class="message">
+                                <p>Maecenas nec odio et ante tincidunt tempus.</p><small>10:00 am</small>
+                            </div>
+                            <!-- .,message -->
+                        </div>
+                        <!-- /.current-user-message -->
+                        <div class="other-user-message">
+                            <img class="user-image" width="30" height="30" src="assets/demo/users/user2.jpg" alt="">
+                            <div class="message">
+                                <p>Donec sodales :)</p><small>10:00 am</small>
+                            </div>
+                            <!-- /.message -->
+                        </div>
+                        <!-- /.other-user-message -->
+                    </div>
+                    <!-- /.messages -->
+                    <form action="javascript:void(0)" method="post">
+                        <textarea name="message" style="resize: none" placeholder="Type message and hit enter"></textarea>
+                        <ul class="list-unstyled list-inline chat-extra-buttons">
+                            <li class="list-inline-item"><a href="javascript:void(0)"><i class="material-icons">insert_emoticon</i></a>
+                            </li>
+                            <li class="list-inline-item"><a href="javascript:void(0)"><i class="material-icons">attach_file</i></a>
+                            </li>
+                        </ul>
+                        <button class="btn btn-color-scheme btn-circle submit-btn" type="submit"><i class="material-icons">send</i>
+                        </button>
+                    </form>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.chat-panel -->
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- FOOTER -->
+    <% include ../partials/footer %>
+</div>
+<!--/ #wrapper -->
+<!-- Scripts -->
+<% include ../partials/scripts %>
+<script>
+    document.onkeydown = function(e) {
+    if(event.keyCode == 123) {
+        return false;
+    }
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+        return false;
+    }
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+        return false;
+    }
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+        return false;
+    }
+    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+        return false;
+    }
+    }
+    $(document).ready(function(){
+        <% if(Categories.length > 0){ c = 0; %>
+            <% Categories.forEach(function(category) { c++; %>
+                $("#next<%= category._id%>").click(function(){
+                    $.post("/dashboard/lesson" ,{ category : "<%= category._id%>" } , function (data) {
+                        if (data['status'] == 200) {
+                            $('#tab-bordered-<%= c%>').removeClass('active');
+                            $('#<%= c%>').removeClass('active');
+                            $('#tab-bordered-<%= c + 1%>').addClass('active');
+                            $('#tab-bordered-<%= c + 1%>').removeClass('hide');
+                            $('#<%= c + 1%>').addClass('active');
+                            $('#<%= c + 1%>').removeClass('hide');
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                    });
+                });
+            <% }); %>
+        <% } %>
+    });
+</script>
+</body>
+
+</html>
