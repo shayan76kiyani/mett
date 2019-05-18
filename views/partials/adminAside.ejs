@@ -26,11 +26,11 @@
     <!-- Sidebar Menu -->
     <nav class="sidebar-nav">
         <ul class="nav in side-menu">
-            <li class="<% if( locals.dashboard ){ %>current-page<% } %>"><a href="dashboard" class="ripple"><span class="<% if( locals.dashboard ){ %>color-color-scheme<% } %>"><i
+            <li class="<% if( locals.dashboard ){ %>current-page<% } %>"><a href="/admin/dashboard" class="ripple"><span class="<% if( locals.dashboard ){ %>color-color-scheme<% } %>"><i
                 class="list-icon material-icons">library_books</i> <span class="hide-menu">Dashboard</span></span></a>
                 
             </li>
-            <li class="<% if( locals.User ){ %>current-page<% } %>"><a href="users" class="ripple"><span class="<% if( locals.User ){ %>color-color-scheme<% } %>"><i
+            <li class="<% if( locals.User ){ %>current-page<% } %>"><a href="/admin/users" class="ripple"><span class="<% if( locals.User ){ %>color-color-scheme<% } %>"><i
                 class="list-icon material-icons">library_books</i> <span class="hide-menu">Users</span></span></a>
                 
             </li>
@@ -38,34 +38,34 @@
                             class="list-icon material-icons">library_books</i> <span class="hide-menu">Lesson</span></span></a>
                 <ul
                         class="list-unstyled sub-menu">
-                    <li><a href="lessons">Lessons</a>
+                    <li><a href="/admin/lessons">Lessons</a>
                     </li>
-                    <li><a href="add-lesson">Add Lesson</a>
+                    <li><a href="/admin/add-lesson">Add Lesson</a>
                     </li>
-                    <li><a href="categories">Categories</a>
+                    <li><a href="/admin/categories">Categories</a>
                     </li>
-                    <li><a href="add-category">Add Category</a>
+                    <li><a href="/admin/add-category">Add Category</a>
                     </li>
                 </ul>
             </li>
             <li class="<% if( locals.Test ){ %>current-page<% } %> menu-item-has-children"><a href="javascript:void(0);" class="ripple"><span class="<% if( locals.Test ){ %>color-color-scheme<% } %>"><i class="list-icon material-icons">content_paste</i> <span class="hide-menu">Test</span></span></a>
                 <ul class="list-unstyled sub-menu">
-                    <li><a href="tests">Tests</a>
+                    <li><a href="/admin/tests">Tests</a>
                     </li>
-                    <li><a href="add-test">Add Test</a>
+                    <li><a href="/admin/add-test">Add Test</a>
                     </li>
                 </ul>
             </li>
             <li class="<% if( locals.Practice ){ %>current-page<% } %> menu-item-has-children"><a href="javascript:void(0);" class="ripple"><span class="<% if( locals.Practice ){ %>color-color-scheme<% } %>"><i
                             class="list-icon material-icons">view_list</i> <span class="hide-menu">Practice</span></span></a>
                 <ul class="list-unstyled sub-menu">
-                    <li><a href="practices">Practices</a>
+                    <li><a href="/admin/practices">Practices</a>
                     </li>
-                    <li><a href="add-practice">Add Practice</a>
+                    <li><a href="/admin/add-practice">Add Practice</a>
                     </li>
                 </ul>
             </li>
-            <li><a href="../logout"><i class="list-icon material-icons">settings_power</i> <span
+            <li><a href="/logout"><i class="list-icon material-icons">settings_power</i> <span
                             class="hide-menu">Log Out</span></a>
             </li>
         </ul>

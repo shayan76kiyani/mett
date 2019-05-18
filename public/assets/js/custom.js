@@ -1309,66 +1309,6 @@
       });
     },
 
-    barChartJs: function() {
-      var ctx = document.getElementById("chartJsBar");
-      if ( ctx === null ) return;
-
-      var ctx2 = document.getElementById("chartJsBar").getContext("2d");
-      var data2 = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [
-          {
-            label: "My First dataset",
-            backgroundColor: "#5867c3",
-            strokeColor: "#5867c3",
-            data: [16, 60, 30, 50, 26, 70, 40]
-          },
-          {
-            label: "My Second dataset",
-            backgroundColor: "#00cedc",
-            strokeColor: "#00cedc",
-            data: [28, 48, 40, 19, 80, 27, 50]
-          }
-        ]
-      };
-
-      var chartJsBar = new Chart(ctx2, {
-        type: "bar",
-        data: data2,
-        options: {
-          legend: {
-            display: false
-          },
-          tooltips: {
-            mode: 'index',
-            intersect: false,
-            titleFontColor: "#000",
-            titleMarginBottom: 10,
-            backgroundColor: "rgba(255,255,255,.9)",
-            bodyFontColor: "#000",
-            borderColor: "#e9e9e9",
-            bodySpacing: 10,
-            borderWidth: 3,
-            xPadding: 10,
-            yPadding: 10,
-          },
-          scales: {
-            xAxes: [{
-              gridLines: {
-                display:false
-              }
-            }],
-            yAxes: [{
-              gridLines: {
-                display:false
-              }
-            }]
-          }
-        },
-        responsive: true
-      });
-    },
-
     doughnutChartJs: function() {
       var ctx = document.getElementById("chartJsDoughnut");
       if ( ctx === null ) return;

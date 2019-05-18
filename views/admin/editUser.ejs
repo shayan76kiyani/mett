@@ -19,20 +19,9 @@
             <!-- Page Title Area -->
             <div class="row page-title clearfix">
                 <div class="page-title-left">
-                    <h5 class="mr-0 mr-r-5">Form Elements</h5>
-                    <p class="mr-0 text-muted d-none d-md-inline-block">statistics, charts, events and reports</p>
+                    <h5 class="mr-0 mr-r-5">Edit User</h5>
                 </div>
                 <!-- /.page-title-left -->
-                <div class="page-title-right d-inline-flex">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.ejs">Dashboard</a>
-                        </li>
-                        <li class="breadcrumb-item active">Form Elements</li>
-                    </ol>
-                    <div class="d-none d-sm-inline-flex justify-center align-items-center"><a href="javascript: void(0);" class="btn btn-outline-primary mr-l-20 btn-sm btn-rounded hidden-xs hidden-sm ripple" target="_blank">Buy Now</a>
-                    </div>
-                </div>
-                <!-- /.page-title-right -->
             </div>
             <!-- /.page-title -->
             <!-- =================================== -->
@@ -43,8 +32,6 @@
                     <div class="col-md-12 widget-holder">
                         <div class="widget-bg">
                             <div class="widget-body clearfix">
-                                <h5 class="box-title mr-b-0">Horizontal Form</h5>
-                                <p class="text-muted">All bootstrap element classies</p>
                                 <form action="<% if( locals.user ){ %><%=  user.email %><% }else{ %>add-user<% } %>" method="POST">
                                     <div class="form-group row">
                                         <label class="col-md-3 col-form-label" for="111">Email</label>
@@ -171,6 +158,34 @@
                                         </div>
                                     </div>
                                 </form>
+                            </div>
+                            <!-- /.widget-body -->
+                        </div>
+                        <!-- /.widget-bg -->
+                    </div>
+                    <!-- /.widget-holder -->
+                    <div class="col-md-6 widget-holder">
+                        <div class="widget-bg">
+                            <div class="widget-body clearfix">
+                                <% if(locals.allTests){ %>
+                                    <p style="text-align:center">تعداد سوالات <%=allTests %></p>
+                                    <% if(locals.user){ %>
+                                        <p style="text-align:center" id="firstMark">تعداد پاسخ های درست پیش آزمون : <%=user.firstTest.mark %></p>
+                                        <p style="text-align:center" id="lastMark">تعداد پاسخ های درست پس آزمون : <%=user.lastTest.mark %></p>
+                                        <p style="text-align:center">درصد پاسخ گویی پیش آزمون : <%-((100/allTests) * user.firstTest.mark).toFixed(2) %></p>
+                                        <p style="text-align:center">درصد پاسخ گویی پس آزمون : <%-((100/allTests) * user.lastTest.mark).toFixed(2) %></p>
+                                    <% } %>
+                                <% } %>
+                            </div>
+                            <!-- /.widget-body -->
+                        </div>
+                        <!-- /.widget-bg -->
+                    </div>
+                    <!-- /.widget-holder -->
+                    <div class="col-md-6 widget-holder">
+                        <div class="widget-bg">
+                            <div class="widget-body clearfix">
+                                <canvas id="chartJsBar" height="150"></canvas>
                             </div>
                             <!-- /.widget-body -->
                         </div>
@@ -316,6 +331,70 @@
 <!--/ #wrapper -->
 <!-- Scripts -->
 <% include ../partials/scripts %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+<script src="assets/vendors/charts/utils.js"></script>
+<script>
+    $(document).ready(function(){
+      var ctx = document.getElementById("chartJsBar");
+      if ( ctx === null ) return;
+
+      var ctx2 = document.getElementById("chartJsBar").getContext("2d");
+      var data2 = {
+        labels: ["tests"],
+        datasets: [
+          {
+            label: "first test",
+            backgroundColor: "#dd4444",
+            strokeColor: "#dd4444",
+            data: [<%-((100/allTests)*user.firstTest.mark).toFixed(2) %>]
+          },
+          {
+            label: "last test",
+            backgroundColor: "#545d73",
+            strokeColor: "#545d73",
+            data: [<%-((100/allTests)*user.lastTest.mark).toFixed(2) %>]
+          }
+        ]
+      };
+
+      var chartJsBar = new Chart(ctx2, {
+        type: "bar",
+        data: data2,
+        options: {
+          legend: {
+            display: false
+          },
+          tooltips: {
+            mode: 'index',
+            intersect: false,
+            titleFontColor: "#000",
+            titleMarginBottom: 10,
+            backgroundColor: "rgba(255,255,255,.9)",
+            bodyFontColor: "#000",
+            borderColor: "#e9e9e9",
+            bodySpacing: 10,
+            borderWidth: 3,
+            xPadding: 10,
+            yPadding: 10,
+          },
+          scales: {
+            xAxes: [{
+              gridLines: {
+                display:false
+              }
+            }],
+            yAxes: [{
+              gridLines: {
+                display:false
+              }
+            }]
+          }
+        },
+        responsive: true
+      });
+    });
+</script>
 </body>
 
 </html>

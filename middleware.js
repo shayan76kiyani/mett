@@ -100,8 +100,8 @@ let lastExamChecker = (req, res, next) => {
                 if (user.firstTest.done){
                     if (user.lessonStatus){
                         if (user.practice.done){
-                            if (user.lastTest.done && user.complete == false){
-                                res.redirect('/dashboard/dashboard');
+                            if (user.lastTest.done && user.complete == true){
+                                res.redirect('/dashboard');
                             }
                             else{
                                 next();

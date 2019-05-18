@@ -41,13 +41,17 @@ router.post('/dashboard/lesson', function(req, res) {
             if (err) return res.status(500).send(err);
             User.findById(req.session.userid).then(function(user) {
                 if (user) {
-                    user.lessonsRead.push(foundCategory);
-                    user.save(function (e, doc) {
-                        if (e) return handleError(err);
-                        else {
-                            res.status(200).json( { status : 200 });
-                        }
-                    });
+                    if (user.complete){
+                        res.status(200).json( { status : 200 });
+                    }else{
+                        user.lessonsRead.push(foundCategory);
+                        user.save(function (e, doc) {
+                            if (e) return handleError(err);
+                            else {
+                                res.status(200).json( { status : 200 });
+                            }
+                        });
+                    }
                 }
             });
         });

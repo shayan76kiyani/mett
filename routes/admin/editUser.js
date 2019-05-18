@@ -3,6 +3,7 @@ var router = express.Router();
 var jdate = require('jdate');
 
 var User = require('../../model/User');
+var Test = require('../../model/Test');
 
 router.get('/admin/user/:email', function (req, res) {
 
@@ -12,7 +13,9 @@ router.get('/admin/user/:email', function (req, res) {
             res.json({status: 404, msg: "cant find any user"});
         }
         if (user) {
-            res.render('admin/editUser', {title: 'Edit user', user: user, User:true});
+            Test.find().then(function(allTest){
+                res.render('admin/editUser', {title: 'Edit user', user: user, User:true, allTests: allTest.length});
+            });
         }
     });
 });

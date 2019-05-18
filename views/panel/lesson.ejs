@@ -61,7 +61,7 @@
                                         <% a=0; if(Categories.length > 0){  %>
                                             <% Categories.forEach(function(category) { a++; %>
                                                 <li class="nav-item">
-                                                    <a class="nav-link <% if(a == 1 ){ %> active <% } %>" href="#tab-bordered-<%= a%>" data-toggle="tab" aria-expanded="true" id="<%= a%>"><%= category.category %></a>
+                                                    <a class="nav-link <% if(a == 1 ){ %> active <% } else { %>hide<% } %>" href="#tab-bordered-<%= a%>" data-toggle="tab" aria-expanded="true" id="<%= a%>"><%= category.category %></a>
                                                 </li>
                                             <% }); %>
                                         <% } %>
