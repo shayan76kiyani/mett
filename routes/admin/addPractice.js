@@ -6,7 +6,7 @@ var Practice = require('../../model/Practice');
 
 /* GET users listing. */
 router.get('/admin/add-practice', function(req, res) {
-    res.render('admin/addPractice', { title: 'add practice', practice:true });
+    res.render('admin/addPractice', { title: 'add practice', Practice:true });
 });
 
 router.post('/admin/add-practice', function( req,res){

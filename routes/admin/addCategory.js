@@ -6,7 +6,7 @@ var Category = require('../../model/Category');
 
 /* GET users listing. */
 router.get('/admin/add-category', function(req, res) {
-    res.render('admin/addCategory', { title: 'addCategory', category:true});
+    res.render('admin/addCategory', { title: 'addCategory', Category:true});
 });
 
 router.post('/admin/add-category', function( req,res){

@@ -12,7 +12,7 @@ router.get('/admin/practice/:id', function(req, res) {
             res.json( { status : 404 , msg : "cant find any practice" });
         }
         if (practice) {
-            res.render('admin/addPractice', { title: 'Edit Practice', practice: practice, edit: true, practice:true });
+            res.render('admin/addPractice', { title: 'Edit Practice', practice: practice, edit: true, Practice:true });
         }
     });
 });

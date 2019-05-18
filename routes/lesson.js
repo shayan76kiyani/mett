@@ -13,7 +13,7 @@ router.get('/dashboard/lesson', function(req, res) {
             ids = user.lessonsRead;
         }
         
-        Category.find({ "_id": { "$nin": ids } }).populate({ path:"lesson", model: 'Lesson' }).sort({_id:-1}).then(function(category) {
+        Category.find({ "_id": { "$nin": ids } }).populate({ path:"lesson", model: 'Lesson',options: { sort: {'created_at':-1}} }).sort({_id:-1}).then(function(category) {
             console.log(category);
             if (!category) {
                 res.json( { status : 404 , msg : "cant find any lesson" });

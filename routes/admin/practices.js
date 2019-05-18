@@ -11,7 +11,7 @@ router.get('/admin/practices', function(req, res) {
             res.json( { status : 404 , msg : "cant find any practices" });
         }
         if (practice) {
-            res.render('admin/practice', { title: 'Practices', Practices: practice, practice:true });
+            res.render('admin/practice', { title: 'Practices', Practices: practice, Practice:true });
         }
     });
 });

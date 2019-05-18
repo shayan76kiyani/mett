@@ -15,9 +15,9 @@ router.get('/admin/lesson/:id', function(req, res, next) {
         if (lesson) {
             Category.find().sort({_id:-1}).then(function(category) {
                 if (category) {
-                    res.render('admin/addLesson', { title: 'Edit lesson', lesson: lesson, categories: category, edit: true, lesson:true });
+                    res.render('admin/addLesson', { title: 'Edit lesson', lesson: lesson, categories: category, edit: true, Lesson:true });
                 }else{
-                    res.render('admin/addLesson', { title: 'Edit lesson', lesson: lesson, categories: ['هیچ سر دسته ای یافت نشد اضافه کنید'], edit: true, lesson:true });
+                    res.render('admin/addLesson', { title: 'Edit lesson', lesson: lesson, categories: ['هیچ سر دسته ای یافت نشد اضافه کنید'], edit: true, Lesson:true });
                 }
             });
         }
@@ -39,30 +39,52 @@ router.post('/admin/lesson/:id', function(req, res) {
             } else {
                 console.log(doc._id);
                 Category.findOne({lesson: doc._id}, function (err,cat){
-                    cat.lesson.pull( doc._id );
-                    cat.save(function(err, data){
-                        if(err){ console.log(err);}
-                        if(!err){
-                            Category.findOne({category: req.body.Category}, function (err, category) {
-                                if (err) return res.status(500).send(err);
-                                if (!err){
-                                    category.lesson.push(doc._id);
-                                    category.save(function(err, d){
-                                        if(err){ console.log(err);}
-                                        if(!err){
-                                            Category.find().sort({_id:-1}).then(function(categories) {
-                                                if (categories) {
-                                                    res.render('admin/addLesson', { title: 'Edit lesson', lesson: doc, categories: categories });
-                                                }else{
-                                                    res.render('admin/addLesson', { title: 'Edit lesson', lesson: doc, categories: ['هیچ سر دسته ای یافت نشد اضافه کنید'] });
-                                                }
-                                            });
-                                        }
-                                    })
-                                }
-                            });
-                        }
-                    });
+                    if(err){ console.log(err);}
+                    if (cat) {
+                        cat.lesson.pull( doc._id );
+                        cat.save(function(err, data){
+                            if(err){ console.log(err);}
+                            if(!err){
+                                Category.findOne({category: req.body.Category}, function (err, category) {
+                                    if (err) return res.status(500).send(err);
+                                    if (!err){
+                                        category.lesson.push(doc._id);
+                                        category.save(function(err, d){
+                                            if(err){ console.log(err);}
+                                            if(!err){
+                                                Category.find().sort({_id:-1}).then(function(categories) {
+                                                    if (categories) {
+                                                        res.render('admin/addLesson', { title: 'Edit lesson', lesson: doc, categories: categories });
+                                                    }else{
+                                                        res.render('admin/addLesson', { title: 'Edit lesson', lesson: doc, categories: ['هیچ سر دسته ای یافت نشد اضافه کنید'] });
+                                                    }
+                                                });
+                                            }
+                                        })
+                                    }
+                                });
+                            }
+                        });
+                    }else {
+                        Category.findOne({category: req.body.Category}, function (err, category) {
+                            if (err) return res.status(500).send(err);
+                            if (!err){
+                                category.lesson.push(doc._id);
+                                category.save(function(err, d){
+                                    if(err){ console.log(err);}
+                                    if(!err){
+                                        Category.find().sort({_id:-1}).then(function(categories) {
+                                            if (categories) {
+                                                res.render('admin/addLesson', { title: 'Edit lesson', lesson: doc, categories: categories });
+                                            }else{
+                                                res.render('admin/addLesson', { title: 'Edit lesson', lesson: doc, categories: ['هیچ سر دسته ای یافت نشد اضافه کنید'] });
+                                            }
+                                        });
+                                    }
+                                })
+                            }
+                        });
+                    }
                 })
             }
         }

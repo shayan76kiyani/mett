@@ -12,7 +12,7 @@ router.get('/admin/test/:id', function(req, res) {
             res.json( { status : 404 , msg : "cant find any test" });
         }
         if (test) {
-            res.render('admin/addTest', { title: 'Edit test', test: test, edit: true, test:true });
+            res.render('admin/addTest', { title: 'Edit test', test: test, edit: true, Test:true });
         }
     });
 });

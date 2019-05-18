@@ -9,9 +9,9 @@ var Category = require('../../model/Category');
 router.get('/admin/add-lesson', function(req, res) {
     Category.find().sort({_id:-1}).then(function(category) {
         if (category) {
-            res.render('admin/addLesson', { title: 'addLesson', categories: category, lesson:true });
+            res.render('admin/addLesson', { title: 'addLesson', categories: category, Lesson:true });
         }else{
-            res.render('admin/addLesson', { title: 'addLesson', categories: ['هیچ سر دسته ای یافت نشد اضافه کنید'], lesson:true });
+            res.render('admin/addLesson', { title: 'addLesson', categories: ['هیچ سر دسته ای یافت نشد اضافه کنید'], Lesson:true });
         }
     });
 });

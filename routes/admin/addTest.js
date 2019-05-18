@@ -6,7 +6,7 @@ var Test = require('../../model/Test');
 
 /* GET users listing. */
 router.get('/admin/add-test', function(req, res) {
-    res.render('admin/addTest', { title: 'add test', test:true });
+    res.render('admin/addTest', { title: 'add test', Test:true });
 });
 
 router.post('/admin/add-test', function( req,res){

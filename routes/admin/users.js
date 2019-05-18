@@ -11,7 +11,7 @@ router.get('/admin/users', function(req, res) {
             res.json( { status : 404 , msg : "cant find any user" });
         }
         if (user) {
-            res.render('admin/user', { title: 'Users', Users: user, user:true });
+            res.render('admin/user', { title: 'Users', Users: user, User:true });
         }
     });
 });

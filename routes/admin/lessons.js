@@ -11,7 +11,7 @@ router.get('/admin/lessons', function(req, res) {
             res.json( { status : 404 , msg : "cant find any lesson" });
         }
         if (lesson) {
-            res.render('admin/lesson', { title: 'Lessons', Lessons: lesson, lesson:true });
+            res.render('admin/lesson', { title: 'Lessons', Lessons: lesson, Lesson:true });
         }
     });
 });
