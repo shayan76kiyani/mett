@@ -1,6 +1,7 @@
 var mongoose = require('mongoose') ;
 var practiceSchema = new mongoose.Schema({
-    pic: {type: String, require: true},
+    firstPic: {type: String, require: true},
+    secondPic: {type: String, require: true},
     jDate:{type:Date, require:true},
     options: [{
         option:{type:String}//gozine ha

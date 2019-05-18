@@ -12,7 +12,7 @@ router.get('/admin/category/:id', function(req, res, next) {
             res.json( { status : 404 , msg : "cant find any category" });
         }
         if (category) {
-            res.render('admin/addCategory', { title: 'Edit category', category: category });
+            res.render('admin/addCategory', { title: 'Edit category', category: category, edit: true, category:true });
         }
     });
 });

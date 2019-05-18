@@ -21,20 +21,9 @@
             <!-- Page Title Area -->
             <div class="row page-title clearfix">
                 <div class="page-title-left">
-                    <h5 class="mr-0 mr-r-5">Editable Table</h5>
-                    <p class="mr-0 text-muted d-none d-md-inline-block">statistics, charts, events and reports</p>
+                    <h5 class="mr-0 mr-r-5">Tests</h5>
                 </div>
                 <!-- /.page-title-left -->
-                <div class="page-title-right d-inline-flex">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a>
-                        </li>
-                        <li class="breadcrumb-item active">Editable Table</li>
-                    </ol>
-                    <div class="d-none d-sm-inline-flex justify-center align-items-center"><a href="javascript: void(0);" class="btn btn-outline-primary mr-l-20 btn-sm btn-rounded hidden-xs hidden-sm ripple" target="_blank">Buy Now</a>
-                    </div>
-                </div>
-                <!-- /.page-title-right -->
             </div>
             <!-- /.page-title -->
             <!-- =================================== -->
@@ -44,16 +33,12 @@
                 <div class="row">
                     <div class="col-md-12 widget-holder">
                         <div class="widget-bg">
-                            <div class="widget-heading clearfix">
-                                <h5>Datatable Editable</h5>
-                            </div>
-                            <!-- /.widget-heading -->
                             <div class="widget-body clearfix">
                                 <table class="table table-editable-inline table-responsive" data-toggle="datatables">
                                     <thead>
                                     <tr>
                                         <th data-identifier>id</th>
-                                        <th data-editable>content</th>
+                                        <th data-editable>true option</th>
                                         <th>created On</th>
                                         <th></th>
                                     </tr>
@@ -63,7 +48,7 @@
                                     <% Tests.forEach(function(test) { %>
                                     <tr data-expanded="true">
                                         <td><%= test._id %></td>
-                                        <td><%= test.content %></td>
+                                        <td><%= test.trueOption %></td>
                                         <td><%= test.jDate %></td>
                                         <td style="white-space: nowrap; width: 1%;">
                                             <div class="tabledit-toolbar btn-toolbar" style="text-align: left;">

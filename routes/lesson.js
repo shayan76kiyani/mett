@@ -6,15 +6,20 @@ var User = require('../model/User');
 
 /* GET users listing. */
 router.get('/dashboard/lesson', function(req, res) {
-    User.findById(req.session.userid,'lessonsRead' , function(err, user){
+    User.findById(req.session.userid,'lessonsRead complete' , function(err, user){
         if (err) return res.status(500).send(err);
-        Category.find({ "_id": { "$nin": user.lessonsRead } }).populate({ path:"lesson", model: 'Lesson' }).sort({_id:-1}).then(function(category) {
+        let ids = [];
+        if(user.complete != true){
+            ids = user.lessonsRead;
+        }
+        
+        Category.find({ "_id": { "$nin": ids } }).populate({ path:"lesson", model: 'Lesson' }).sort({_id:-1}).then(function(category) {
             console.log(category);
             if (!category) {
                 res.json( { status : 404 , msg : "cant find any lesson" });
             }
             if (category) {
-                res.render('panel/lesson', { title: 'Lessons', Categories: category });
+                res.render('panel/lesson', { title: 'Lessons', Categories: category, lesson: true });
             }
         });
     });

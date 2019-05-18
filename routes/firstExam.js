@@ -6,14 +6,31 @@ var User = require('../model/User');
 
 /* GET users listing. */
 router.get('/dashboard/first-exam', function(req, res) {
-    User.findById(req.session.userid,'firstTest.test' , function(err, user){
+    User.findById(req.session.userid,'firstTest.test firstTest.mark speed' , function(err, user){
         Test.find({ "_id": { "$nin": user.firstTest.test } }).sort({_id:-1}).then(function(test) {
-            console.log(test);
             if (!test) {
                 res.json( { status : 404 , msg : "cant find any test" });
             }
             if (test) {
-                res.render('panel/exam', { title: 'First Exam', Tests: test });
+                function shuffle(array) {
+                    var currentIndex = array.length, temporaryValue, randomIndex;
+                  
+                    // While there remain elements to shuffle...
+                    while (0 !== currentIndex) {
+                  
+                      // Pick a remaining element...
+                      randomIndex = Math.floor(Math.random() * currentIndex);
+                      currentIndex -= 1;
+                  
+                      // And swap it with the current element.
+                      temporaryValue = array[currentIndex];
+                      array[currentIndex] = array[randomIndex];
+                      array[randomIndex] = temporaryValue;
+                    }
+                  
+                    return array;
+                  }
+                res.render('panel/exam', { title: 'First Exam', Tests: shuffle(test), mark: user.firstTest.mark, allTests: test.length + user.firstTest.test.length, speed: user.speed, firstTest: true });
             }
         });
     });
@@ -42,7 +59,7 @@ router.post('/dashboard/first-exam', function(req, res) {
                     user.save(function (e, doc) {
                         if (e) return handleError(err);
                         else {
-                            res.status(200).json( { status : 200 });
+                            res.status(200).json( { status : 200, mark: doc.firstTest.mark });
                         }
                     });
                 }else{
@@ -50,7 +67,7 @@ router.post('/dashboard/first-exam', function(req, res) {
                     user.save(function (e, doc) {
                         if (e) return handleError(err);
                         else {
-                            res.status(200).json( { status : 200 });
+                            res.status(200).json( { status : 200, mark: doc.firstTest.mark });
                         }
                     });
                 }

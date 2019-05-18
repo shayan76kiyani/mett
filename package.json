@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "node ./bin/www",
+    "test": "nodemon ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^3.0.5",
@@ -20,6 +21,8 @@
     "mongodb": "^3.2.3",
     "mongoose": "^5.4.22",
     "morgan": "~1.9.0",
-    "multer": "^1.4.1"
+    "multer": "^1.4.1",
+    "otp-generator": "^1.1.0",
+    "uuid": "^3.3.2"
   }
 }

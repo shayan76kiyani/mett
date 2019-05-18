@@ -11,7 +11,7 @@ router.get('/admin/Categories', function(req, res) {
             res.json( { status : 404 , msg : "cant find any category" });
         }
         if (category) {
-            res.render('admin/category', { title: 'Categorys', Categories: category });
+            res.render('admin/category', { title: 'Categorys', Categories: category, category:true });
         }
     });
 });

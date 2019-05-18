@@ -1,51 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var jdate = require('jdate');
-const multer = require('multer');
-const path   = require('path');
-
-/** Storage Engine */
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'public/uploaded-files')
-    },
-    filename: function(req, file, cb){
-        cb(null,  new Date().getTime().toString()+path.extname(file.originalname));
-    }
-});
-//init
-var upload = multer({
-    storage: storage,
-    limits: {
-        fileSize: 200000
-    },
-    fileFilter: function (req, file, callback) {
-        validateFile(file, callback);
-    }
-});
-
-var validateFile = function (file, cb) {
-    allowedFileTypes = /jpeg|jpg|png|gif/;
-    const extension = allowedFileTypes.test(path.extname(file.originalname).toLowerCase());
-    const mimeType = allowedFileTypes.test(file.mimetype);
-    if (extension && mimeType) {
-        return cb(null, true);
-    } else {
-        cb("Invalid file type. Only JPEG, PNG and GIF file are allowed.")
-    }
-}
 
 var Test = require('../../model/Test');
 
 /* GET users listing. */
 router.get('/admin/add-test', function(req, res) {
-    res.render('admin/addTest', { title: 'add test' });
+    res.render('admin/addTest', { title: 'add test', test:true });
 });
 
-router.post('/admin/add-test', upload.single('file'), function( req,res){
+router.post('/admin/add-test', function( req,res){
     Test.create({
         trueOption: req.body.trueOption,
-        pic: '/uploaded-files/' + req.file.filename,
+        pic: req.body.pic,
         jDate: jdate.JDate().toString('yyyy/MM/dd HH:mm:ss'),
         options:[
             {

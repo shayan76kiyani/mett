@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
     SALT_WORK_FACTOR = 10;
 
 var UserSchema = new mongoose.Schema({
+    speed:{type:Number, default:200},
     username: {type: String, unique: true, require: true},
     email: {type: String, unique: true, require: true},
     password: {type: String, require: true},
@@ -27,7 +28,23 @@ var UserSchema = new mongoose.Schema({
         test:[{type: mongoose.Schema.Types.ObjectId, ref: 'Test'}],
         done:{type: Boolean, default: false}
     },
+    completeLastTest: {
+        mark: {type: Number, default: 0},
+        test:[{type: mongoose.Schema.Types.ObjectId, ref: 'Test'}],
+        done:{type: Boolean, default: false}
+    },
     practice: {
+        mark: {type: Number, default: 0},
+        practices:[
+            {
+                practice: {type: mongoose.Schema.Types.ObjectId, ref: 'Practice'},
+                help:{type: Number, default: 0},
+                true:{type:Boolean, default: false}
+            }
+        ],
+        done:{type: Boolean, default: false}
+    },
+    completePractice: {
         mark: {type: Number, default: 0},
         practices:[
             {

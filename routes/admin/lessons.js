@@ -11,15 +11,16 @@ router.get('/admin/lessons', function(req, res) {
             res.json( { status : 404 , msg : "cant find any lesson" });
         }
         if (lesson) {
-            res.render('admin/lesson', { title: 'Lessons', Lessons: lesson });
+            res.render('admin/lesson', { title: 'Lessons', Lessons: lesson, lesson:true });
         }
     });
 });
 router.post('/admin/lessons',function(req, res){
-    console.log(req.body );
+    console.log( req.body );
     Lesson.findByIdAndRemove(req.body.id, (err, lesson) => {
         if (err) return res.status(500).send(err);
         const response = {
+            status:200,
             message: "Lesson successfully deleted",
             id: lesson._id
         };

@@ -8,6 +8,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-touchspin/3.1.2/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.7/css/ion.rangeSlider.min.css" rel="stylesheet" type="text/css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet" type="text/css">
+    <style>
+        .hide{
+            display: none !important;
+        }
+    </style>
 </head>
 
 <body class="header-light sidebar-dark sidebar-expand">
@@ -25,20 +30,9 @@
             <!-- Page Title Area -->
             <div class="row page-title clearfix">
                 <div class="page-title-left">
-                    <h5 class="mr-0 mr-r-5">TinyMCE Editor</h5>
-                    <p class="mr-0 text-muted d-none d-md-inline-block">statistics, charts, events and reports</p>
+                    <h5 class="mr-0 mr-r-5">افزودن سوال جدید</h5>
                 </div>
                 <!-- /.page-title-left -->
-                <div class="page-title-right d-inline-flex">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.ejs">Dashboard</a>
-                        </li>
-                        <li class="breadcrumb-item active">TinyMCE Editor</li>
-                    </ol>
-                    <div class="d-none d-sm-inline-flex justify-center align-items-center"><a href="javascript: void(0);" class="btn btn-outline-primary mr-l-20 btn-sm btn-rounded hidden-xs hidden-sm ripple" target="_blank">Buy Now</a>
-                    </div>
-                </div>
-                <!-- /.page-title-right -->
             </div>
             <!-- /.page-title -->
             <!-- =================================== -->
@@ -46,18 +40,37 @@
             <!-- =================================== -->
             <div class="widget-list">
                 <div class="row">
-                    <div class="col-md-12 widget-holder">
+                    <div class="col-md-6 widget-holder">
                         <div class="widget-bg">
                             <div class="widget-body">
-                                <h5 class="box-title mr-b-0">افزودن سوال جدید</h5>
-                                <br><br>
-                                <form action="<% if( locals.test ){ %><%=  test._id %><% }else{ %>add-test<% } %>" method="POST" enctype="multipart/form-data">
+                                <form id="data">
+                                    <div class="form-group mr-b-30">
+                                        <h5 class="box-title mr-b-0">عکس سوال را انتخاب کنید</h5>
+                                        <p class="text-muted">یک متن تستی</p>
+                                        <input class="form-control" type="file" name="file"><br>
+                                        <input class="btn btn-success btn-rounded ripple" type="submit" value="Submit" style="margin:0 auto; display: block;">
+                                        <br>
+                                        <div id="img" style="display: table; margin: 0 auto;">
+                                            <% if( locals.test ){ %><img src="<%=  test.pic %>"><% } %>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.widget-body -->
+                        </div>
+                        <!-- /.widget-bg -->
+                    </div>
+                    <!-- /.col-md-6 -->
+                    <div class="col-md-6 widget-holder">
+                        <div class="widget-bg" style="min-height: 260px;">
+                            <div class="widget-body">
+                                <form action="<% if( locals.edit ){ %><%=  test._id %><% }else{ %>add-test<% } %>" method="POST">
                                     
                                     <div class="form-group mr-b-30">
                                         <h5 class="box-title mr-b-0">گزینه درست</h5>
                                         <p class="text-muted">یک متن تستی</p>
                                         <select class="form-control" id="l13" name="trueOption">
-                                            <option <% if( locals.test ){ %><% if(test.trueOption == "خشم"){ %> selected <% } %><% } %>>خشم</option>
+                                            <option<% if( locals.test ){ %><% if(test.trueOption == "خشم"){ %> selected <% } %><% } %>>خشم</option>
                                             <option<% if( locals.test ){ %><% if(test.trueOption == "انزجار"){ %> selected <% } %><% } %>>انزجار</option>
                                             <option<% if( locals.test ){ %><% if(test.trueOption == "غم"){ %> selected <% } %><% } %>>غم</option>
                                             <option<% if( locals.test ){ %><% if(test.trueOption == "شادی"){ %> selected <% } %><% } %>>شادی</option>
@@ -65,14 +78,9 @@
                                             <option<% if( locals.test ){ %><% if(test.trueOption == "ترس"){ %> selected <% } %><% } %>>ترس</option>
                                             <option<% if( locals.test ){ %><% if(test.trueOption == "تمسخر"){ %> selected <% } %><% } %>>تمسخر</option>
                                         </select>
+                                        <input type="hidden" name="pic" readonly="readonly" id="picName" <% if( locals.test ){ %>value="<%=  test.pic %>"<% } %>>
                                     </div>
-                                    <div class="form-group mr-b-30">
-                                        <h5 class="box-title mr-b-0">عکس سوال را انتخاب کنید</h5>
-                                        <p class="text-muted">یک متن تستی</p>
-                                        <input type="file" name="file">
-                                    </div>
-                                    <br>
-                                    <button class="btn btn-success btn-rounded ripple" type="submit" id="submit" style="margin: auto; display: block;"><i class="material-icons list-icon">check</i>  <span>Save</span>
+                                    <button class="btn btn-success btn-rounded ripple <% if( !locals.test ){ %> hide<% } %>" type="submit" id="submit" style="margin:0 auto; display: block;"><i class="material-icons list-icon">check</i>  <span>Save</span>
                                     </button>
                                 </form>
                                 <br>
@@ -96,7 +104,7 @@
                         </div>
                         <!-- /.widget-bg -->
                     </div>
-                    <!-- /.col-md-12 -->
+                    <!-- /.col-md-6 -->
                 </div>
                 <!-- /.row -->
             </div>
@@ -241,6 +249,35 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-touchspin/3.1.2/jquery.bootstrap-touchspin.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.7/js/ion.rangeSlider.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+<script>
+    $(document).ready(function(){
+        //Program a custom submit function for the form
+        $("form#data").submit(function(event){
+            //disable the default form submission
+            event.preventDefault();
+            //grab all form data  
+            var formData = new FormData($(this)[0]);
+            $.ajax({
+            url: '/admin/upload-pic',
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                if (res['status'] == 200) {
+                    $('#submit').removeClass('hide');
+                    $('#img').html('<img src='+res['file']+'>');
+                    $('#picName').val(res['file']);
+                }
+            }
+        });
+
+        return false;
+        });
+    });
+</script>
 </body>
 
 </html>

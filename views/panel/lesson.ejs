@@ -25,20 +25,9 @@
             <!-- Page Title Area -->
             <div class="row page-title clearfix">
                 <div class="page-title-left">
-                    <h5 class="mr-0 mr-r-5">Tabs</h5>
-                    <p class="mr-0 text-muted d-none d-md-inline-block">statistics, charts, events and reports</p>
+                    <h5 class="mr-0 mr-r-5"><%=title %></h5>
                 </div>
                 <!-- /.page-title-left -->
-                <div class="page-title-right d-inline-flex">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a>
-                        </li>
-                        <li class="breadcrumb-item active">Tabs</li>
-                    </ol>
-                    <div class="d-none d-sm-inline-flex justify-center align-items-center"><a href="javascript: void(0);" class="btn btn-outline-primary mr-l-20 btn-sm btn-rounded hidden-xs hidden-sm ripple" target="_blank">Buy Now</a>
-                    </div>
-                </div>
-                <!-- /.page-title-right -->
             </div>
             <!-- /.page-title -->
             <!-- =================================== -->
@@ -47,10 +36,26 @@
             <div class="widget-list">
                 <div class="row">
                     <!-- Tabs Bordered -->
-                    <div class="col-md-12 widget-holder">
+                    <div class="col-md-12 widget-holder" id="inst">
                         <div class="widget-bg">
                             <div class="widget-body clearfix">
-                                <h5 class="box-title">Tabs Bordered</h5>
+                                <h5>دستورالعمل :</h5>
+                                <br>
+                                <p>بر روی هر یک از هیجانات کلیک کرده تا وارد بخش آموزشی آن هیجان شوید.
+                                        تمامی صفحات آموزشِ هر هیجان خاص را مطالعه کنید تا زمانی که به پایانِ آن برسید و سپس دکمۀ بعدی را بزنید تا به هیجان بعد بروید.
+                                        </p>
+                                <p>علاوه بر هر هیجان خاص، هیجاناتی که اکثراً باهم اشتباه گرفته می‌شوند نیز در این بخش باهم مقایسه شده‌اند.
+                                        زمانی که همۀ هیجانات را به طور کامل مطالعه کردید، دکمۀ پایان آموزش‌ها ظاهر شده و با کلیک کردن بر روی دکمۀ مرحلۀ بعد، به مرحلۀ پس آزمون بروید.
+                                        </p>
+                                <button class="btn btn-outline-info mr-r-10 mr-b-10" id="start">شروع آموزش</button>
+                            </div>
+                            <!-- /.widget-body -->
+                        </div>
+                        <!-- /.widget-bg -->
+                    </div>
+                    <div class="col-md-12 widget-holder hide" id="showLesson">
+                        <div class="widget-bg">
+                            <div class="widget-body clearfix">
                                 <div class="tabs tabs-bordered">
                                     <ul class="nav nav-tabs">
                                         <% a=0; if(Categories.length > 0){  %>
@@ -77,7 +82,7 @@
                                                         <img src="<%= Lesson.pic %>" alt="<%= Lesson.subject %>" style="display: block; margin: 30px auto 0;">
                                                     <% }); %>
                                                     <div style="display: table; margin: 20px auto 0;">
-                                                        <button class="btn btn-info mr-r-10 mr-b-10" id="next<%= category._id%>" style="padding: 8px 30px;">next</button>
+                                                        <button class="btn btn-info mr-r-10 mr-b-10" id="next<%= category._id%>" style="padding: 8px 30px;">بعدی</button>
                                                     </div>
                                                 </div>
                                             <% }); %>
@@ -259,6 +264,10 @@
     }
     }
     $(document).ready(function(){
+        $("#start").click(function(){
+            $("#inst").remove();
+            $("#showLesson").removeClass("hide");
+        });
         <% if(Categories.length > 0){ c = 0; %>
             <% Categories.forEach(function(category) { c++; %>
                 $("#next<%= category._id%>").click(function(){

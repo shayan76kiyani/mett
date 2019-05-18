@@ -24,20 +24,9 @@
             <!-- Page Title Area -->
             <div class="row page-title clearfix">
                 <div class="page-title-left">
-                    <h5 class="mr-0 mr-r-5">TinyMCE Editor</h5>
-                    <p class="mr-0 text-muted d-none d-md-inline-block">statistics, charts, events and reports</p>
+                    <h5 class="mr-0 mr-r-5"><% if( locals.lesson ){ %>Edit Lesson<% }else{ %>Add Lesson<% } %></h5>
                 </div>
                 <!-- /.page-title-left -->
-                <div class="page-title-right d-inline-flex">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.ejs">Dashboard</a>
-                        </li>
-                        <li class="breadcrumb-item active">TinyMCE Editor</li>
-                    </ol>
-                    <div class="d-none d-sm-inline-flex justify-center align-items-center"><a href="javascript: void(0);" class="btn btn-outline-primary mr-l-20 btn-sm btn-rounded hidden-xs hidden-sm ripple" target="_blank">Buy Now</a>
-                    </div>
-                </div>
-                <!-- /.page-title-right -->
             </div>
             <!-- /.page-title -->
             <!-- =================================== -->
@@ -45,12 +34,39 @@
             <!-- =================================== -->
             <div class="widget-list">
                 <div class="row">
+                    <div class="col-md-6 widget-holder">
+                        <div class="widget-bg">
+                            <div class="widget-body">
+                                <form id="pic">
+                                    <div class="form-group mr-b-30">
+                                        <h5 class="box-title mr-b-0">عکس آموزش را انتخاب کنید</h5>
+                                        <p class="text-muted">یک متن تستی</p>
+                                        <input class="form-control" type="file" name="file"><br><br>
+                                        <input class="btn btn-success btn-rounded ripple" type="submit" value="Submit" style="margin:0 auto; display: block;">
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.widget-body -->
+                        </div>
+                        <!-- /.widget-bg -->
+                    </div>
+                    <!-- /.col-md-6 -->
+                    <div class="col-md-6 widget-holder">
+                        <div class="widget-bg" style="height:280px">
+                            <div class="widget-body">
+                                <div class="form-group mr-b-30" id="picPlace" style="display: table; margin: 0 auto;">
+                                    <% if( locals.lesson ){ %><img src="<%=  lesson.pic %>" style="height:250px"><% } %>
+                                </div>
+                            </div>
+                            <!-- /.widget-body -->
+                        </div>
+                        <!-- /.widget-bg -->
+                    </div>
+                    <!-- /.col-md-6 -->
                     <div class="col-md-12 widget-holder">
                         <div class="widget-bg">
                             <div class="widget-body">
-                                <h5 class="box-title mr-b-0"><%= title %></h5>
-                                <br><br>
-                                <form action="<% if( locals.lesson ){ %><%=  lesson._id %><% }else{ %>add-lesson<% } %>" method="POST" enctype="multipart/form-data">
+                                <form action="<% if( locals.edit ){ %><%=  lesson._id %><% }else{ %>add-lesson<% } %>" method="POST">
                                     <div class="form-group mr-b-30">
                                             <h5 class="box-title mr-b-0">سر دسته</h5>
                                             <p class="text-muted">یک متن تستی</p>
@@ -71,8 +87,8 @@
                                     </div>
                                     <textarea data-toggle="wysiwyg" name="Content" ><% if( locals.lesson ){ %><%=  lesson.content %> <% } %></textarea>
                                     <br>
-                                    <input type="file" name="file">
-                                    <br>
+                                    
+                                    <input type="hidden" name="pic" readonly="readonly" id="picName" <% if( locals.lesson ){ %>value="<%=  lesson.pic %>"<% } %>>
                                     <button class="btn btn-success btn-rounded ripple" type="submit" id="submit" style="margin: auto; display: block;"><i class="material-icons list-icon">check</i>  <span>Save</span>
                                     </button>
                                 </form>
@@ -244,6 +260,34 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-touchspin/3.1.2/jquery.bootstrap-touchspin.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.7/js/ion.rangeSlider.min.js"></script>
+<script>
+$(document).ready(function(){
+    //Program a custom submit function for the form
+    $("form#pic").submit(function(event){
+        //disable the default form submission
+        event.preventDefault();
+        //grab all form data  
+        var formData = new FormData($(this)[0]);
+        $.ajax({
+            url: '/admin/upload-pic',
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                if (res['status'] == 200) {
+                    $('#submit').removeClass('hide');
+                    $('#picPlace').html('<img style="height:250px" src='+res['file']+'>');
+                    $('#picName').val(res['file']);
+                }
+            }
+        });
+    return false;
+    });
+});
+</script>
 </body>
 
 </html>

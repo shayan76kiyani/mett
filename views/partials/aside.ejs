@@ -26,18 +26,20 @@
         <!-- Sidebar Menu -->
         <nav class="sidebar-nav">
             <ul class="nav in side-menu">
-                <li><a href="first-exam" class="ripple"><i
-                    class="list-icon material-icons">view_list</i> <span class="hide-menu">پیش آزمون</span></a>
+                <li class="<% if( locals.setSpeed ){ %>current-page<% } %>"><a href="set-speed" class="ripple"><span class="<% if( locals.setSpeed ){ %>color-color-scheme<% } %>"><i
+                    class="list-icon material-icons">timer</i> <span class="hide-menu">تنظیم سرعت</span></span></a>
                 </li>
-                <li><a href="lesson" class="ripple"><i
-                                class="list-icon material-icons">library_books</i> <span class="hide-menu">آموزش</span></a>
+                <li class="<% if( locals.firstTest ){ %>current-page<% } %>"><a href="first-exam" class="ripple"><span class="<% if( locals.firstTest ){ %>color-color-scheme<% } %>"><i
+                    class="list-icon material-icons">view_list</i> <span class="hide-menu">پیش آزمون</span></span></a>
                 </li>
-                <li><a href="practice" class="ripple"><span
-                                class="color-color-scheme"><i class="list-icon material-icons">content_paste</i> <span
+                <li class="<% if( locals.lesson ){ %>current-page<% } %>"><a href="lesson" class="ripple"><span class="<% if( locals.lesson ){ %>color-color-scheme<% } %>"><i
+                                class="list-icon material-icons">library_books</i> <span class="hide-menu">آموزش</span></span></a>
+                </li>
+                <li class="<% if( locals.practice ){ %>current-page<% } %>"><a href="practice" class="ripple"><span class="<% if( locals.practice ){ %>color-color-scheme<% } %>"><i class="list-icon material-icons">content_paste</i> <span
                                     class="hide-menu">تمرین</span></span></a>
                 </li>
-                <li><a href="last-exam" class="ripple"><i
-                                class="list-icon material-icons">view_list</i> <span class="hide-menu">پس آزمون</span></a>
+                <li class="<% if( locals.lastTest ){ %>current-page<% } %>"><a href="last-exam" class="ripple"><span class="<% if( locals.lastTest ){ %>color-color-scheme<% } %>"><i
+                                class="list-icon material-icons">view_list</i> <span class="hide-menu">پس آزمون</span></span></a>
                 </li>
                 <li><a href="../logout"><i class="list-icon material-icons">settings_power</i> <span
                                 class="hide-menu">Log Out</span></a>

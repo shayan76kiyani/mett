@@ -19,6 +19,7 @@ var resetRouter = require('./routes/reset');
 var signupRouter = require('./routes/signup');
 var loginRouter = require('./routes/login');
 var dashboardRouter = require('./routes/dashboard');
+var speedRouter = require('./routes/speed');
 var completeInfoRouter = require('./routes/completeInfo');
 var firstExamRouter = require('./routes/firstExam');
 var lessonRouter = require('./routes/lesson');
@@ -42,6 +43,7 @@ var editCategoryRouter = require('./routes/admin/editCategory');
 var addTestRouter = require('./routes/admin/addTest');
 var testsRouter = require('./routes/admin/tests');
 var editTestRouter = require('./routes/admin/editTest');
+var UploadPicRouter = require('./routes/admin/UploadPic');
 
 var addPracticeRouter = require('./routes/admin/addPractice');
 var practicesRouter = require('./routes/admin/practices');
@@ -130,6 +132,7 @@ app.all('/dashboard/lesson',middleware.lessonChecker, lessonRouter);
 app.all('/dashboard/practice',middleware.practiceChecker, practiceRouter);
 app.all('/dashboard/last-exam',middleware.lastExamChecker, lastExamRouter);
 
+app.all('/dashboard/set-speed',middleware.dashboardChecker, speedRouter);
 app.all('/dashboard',middleware.dashboardChecker, dashboardRouter);
 //admin routes
 app.all('/admin/login',middleware.adminSessionChecker, adminLoginRouter);
@@ -149,6 +152,7 @@ app.all('/admin/category/:id',middleware.adminChecker, editCategoryRouter);
 app.all('/admin/add-test',middleware.adminChecker, addTestRouter);
 app.all('/admin/tests',middleware.adminChecker, testsRouter);
 app.all('/admin/test/:id',middleware.adminChecker, editTestRouter);
+app.all('/admin/upload-pic',middleware.adminChecker, UploadPicRouter);
 
 app.all('/admin/add-practice',middleware.adminChecker, addPracticeRouter);
 app.all('/admin/practices',middleware.adminChecker, practicesRouter);

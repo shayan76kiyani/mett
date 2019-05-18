@@ -12,7 +12,7 @@ router.get('/admin/user/:email', function (req, res) {
             res.json({status: 404, msg: "cant find any user"});
         }
         if (user) {
-            res.render('admin/editUser', {title: 'Edit user', user: user});
+            res.render('admin/editUser', {title: 'Edit user', user: user, user:true});
         }
     });
 });

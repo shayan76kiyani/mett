@@ -25,20 +25,9 @@
             <!-- Page Title Area -->
             <div class="row page-title clearfix">
                 <div class="page-title-left">
-                    <h5 class="mr-0 mr-r-5">TinyMCE Editor</h5>
-                    <p class="mr-0 text-muted d-none d-md-inline-block">statistics, charts, events and reports</p>
+                    <h5 class="mr-0 mr-r-5"><% if( locals.practice ){ %>ویرایش تمرین<% } else {%>افزودن تمرین جدید<%}%></h5>
                 </div>
                 <!-- /.page-title-left -->
-                <div class="page-title-right d-inline-flex">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.ejs">Dashboard</a>
-                        </li>
-                        <li class="breadcrumb-item active">TinyMCE Editor</li>
-                    </ol>
-                    <div class="d-none d-sm-inline-flex justify-center align-items-center"><a href="javascript: void(0);" class="btn btn-outline-primary mr-l-20 btn-sm btn-rounded hidden-xs hidden-sm ripple" target="_blank">Buy Now</a>
-                    </div>
-                </div>
-                <!-- /.page-title-right -->
             </div>
             <!-- /.page-title -->
             <!-- =================================== -->
@@ -46,13 +35,52 @@
             <!-- =================================== -->
             <div class="widget-list">
                 <div class="row">
+                    <div class="col-md-6 widget-holder">
+                        <div class="widget-bg">
+                            <div class="widget-body">
+                                <form id="firstPic">
+                                    <div class="form-group mr-b-30">
+                                        <h5 class="box-title mr-b-0">عکس پیش فرض را انتخاب کنید</h5>
+                                        <p class="text-muted">یک متن تستی</p>
+                                        <input class="form-control" type="file" name="file"><br>
+                                        <input class="btn btn-success btn-rounded ripple" type="submit" value="Submit" style="margin:0 auto; display: block;">
+                                        <br>
+                                        <div id="firstImg" style="display: table; margin: 0 auto;">
+                                            <% if( locals.practice ){ %><img src="<%=  practice.firstPic %>"><% } %>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.widget-body -->
+                        </div>
+                        <!-- /.widget-bg -->
+                    </div>
+                    <!-- /.col-md-6 -->
+                    <div class="col-md-6 widget-holder">
+                        <div class="widget-bg">
+                            <div class="widget-body">
+                                <form id="secondPic">
+                                    <div class="form-group mr-b-30">
+                                        <h5 class="box-title mr-b-0">عکس تمرین را انتخاب کنید</h5>
+                                        <p class="text-muted">یک متن تستی</p>
+                                        <input class="form-control" type="file" name="file"><br>
+                                        <input class="btn btn-success btn-rounded ripple" type="submit" value="Submit" style="margin:0 auto; display: block;">
+                                        <br>
+                                        <div id="secondImg" style="display: table; margin: 0 auto;">
+                                            <% if( locals.practice ){ %><img src="<%=  practice.secondPic %>"><% } %>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.widget-body -->
+                        </div>
+                        <!-- /.widget-bg -->
+                    </div>
+                    <!-- /.col-md-6 -->
                     <div class="col-md-12 widget-holder">
                         <div class="widget-bg">
                             <div class="widget-body">
-                                <h5 class="box-title mr-b-0">افزودن تمرین جدید</h5>
-                                <br><br>
-                                <form action="<% if( locals.practice ){ %><%=  practice._id %><% }else{ %>add-practice<% } %>" method="POST" enctype="multipart/form-data">
-                                    
+                                <form action="<% if( locals.edit ){ %><%=  practice._id %><% }else{ %>add-practice<% } %>" method="POST">
                                     <div class="form-group mr-b-30">
                                         <h5 class="box-title mr-b-0">گزینه درست</h5>
                                         <p class="text-muted">یک متن تستی</p>
@@ -65,14 +93,11 @@
                                             <option<% if( locals.practice ){ %><% if(practice.trueOption == "ترس"){ %> selected <% } %><% } %>>ترس</option>
                                             <option<% if( locals.practice ){ %><% if(practice.trueOption == "تمسخر"){ %> selected <% } %><% } %>>تمسخر</option>
                                         </select>
-                                    </div>
-                                    <div class="form-group mr-b-30">
-                                        <h5 class="box-title mr-b-0">عکس سوال را انتخاب کنید</h5>
-                                        <p class="text-muted">یک متن تستی</p>
-                                        <input type="file" name="file">
+                                        <input type="hidden" name="firstPic" readonly="readonly" id="firstPicName" <% if( locals.practice ){ %>value="<%=  practice.firstPic %>"<% } %>>
+                                        <input type="hidden" name="secondPic" readonly="readonly" id="secondPicName" <% if( locals.practice ){ %>value="<%=  practice.secondPic %>"<% } %>>
                                     </div>
                                     <br>
-                                    <button class="btn btn-success btn-rounded ripple" type="submit" id="submit" style="margin: auto; display: block;"><i class="material-icons list-icon">check</i>  <span>Save</span>
+                                    <button class="btn btn-success btn-rounded ripple <% if( !locals.practice ){ %> hide<% } %>" type="submit" id="submit" style="margin: auto; display: block;"><i class="material-icons list-icon">check</i>  <span>Save</span>
                                     </button>
                                 </form>
                                 <br>
@@ -96,7 +121,7 @@
                         </div>
                         <!-- /.widget-bg -->
                     </div>
-                    <!-- /.col-md-12 -->
+                    <!-- /.col-md-6 -->
                 </div>
                 <!-- /.row -->
             </div>
@@ -241,6 +266,58 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-touchspin/3.1.2/jquery.bootstrap-touchspin.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.7/js/ion.rangeSlider.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+<script>
+        $(document).ready(function(){
+            //Program a custom submit function for the form
+            $("form#firstPic").submit(function(event){
+                //disable the default form submission
+                event.preventDefault();
+                //grab all form data  
+                var formData = new FormData($(this)[0]);
+                $.ajax({
+                    url: '/admin/upload-pic',
+                    type: 'POST',
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (res) {
+                        if (res['status'] == 200) {
+                            $('#submit').removeClass('hide');
+                            $('#firstImg').html('<img src='+res['file']+'>');
+                            $('#firstPicName').val(res['file']);
+                        }
+                    }
+                });
+            return false;
+            });
+            //Program a custom submit function for the form
+            $("form#secondPic").submit(function(event){
+                //disable the default form submission
+                event.preventDefault();
+                //grab all form data  
+                var formData = new FormData($(this)[0]);
+                $.ajax({
+                    url: '/admin/upload-pic',
+                    type: 'POST',
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (res) {
+                        if (res['status'] == 200) {
+                            $('#submit').removeClass('hide');
+                            $('#secondImg').html('<img src='+res['file']+'>');
+                            $('#secondPicName').val(res['file']);
+                        }
+                    }
+                });
+            return false;
+            });
+        });
+    </script>
 </body>
 
 </html>

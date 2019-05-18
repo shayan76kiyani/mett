@@ -11,7 +11,7 @@ router.get('/admin/tests', function(req, res) {
             res.json( { status : 404 , msg : "cant find any test" });
         }
         if (test) {
-            res.render('admin/test', { title: 'Tests', Tests: test });
+            res.render('admin/test', { title: 'Tests', Tests: test, test:true });
         }
     });
 });

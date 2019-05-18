@@ -21,20 +21,9 @@
             <!-- Page Title Area -->
             <div class="row page-title clearfix">
                 <div class="page-title-left">
-                    <h5 class="mr-0 mr-r-5">Editable Table</h5>
-                    <p class="mr-0 text-muted d-none d-md-inline-block">statistics, charts, events and reports</p>
+                    <h5 class="mr-0 mr-r-5">Categories</h5>
                 </div>
                 <!-- /.page-title-left -->
-                <div class="page-title-right d-inline-flex">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a>
-                        </li>
-                        <li class="breadcrumb-item active">Editable Table</li>
-                    </ol>
-                    <div class="d-none d-sm-inline-flex justify-center align-items-center"><a href="javascript: void(0);" class="btn btn-outline-primary mr-l-20 btn-sm btn-rounded hidden-xs hidden-sm ripple" target="_blank">Buy Now</a>
-                    </div>
-                </div>
-                <!-- /.page-title-right -->
             </div>
             <!-- /.page-title -->
             <!-- =================================== -->
@@ -44,37 +33,33 @@
                 <div class="row">
                     <div class="col-md-12 widget-holder">
                         <div class="widget-bg">
-                            <div class="widget-heading clearfix">
-                                <h5>Datatable Editable</h5>
-                            </div>
-                            <!-- /.widget-heading -->
                             <div class="widget-body clearfix">
-                                <table class="table table-editable-inline table-responsive" data-toggle="datatables">
+                                <table class="table table-striped table-responsive" data-toggle="datatables">
                                     <thead>
                                     <tr>
-                                        <th data-identifier>id</th>
-                                        <th data-editable>name</th>
-                                        <th data-editable>subsets</th>
+                                        <th>id</th>
+                                        <th>name</th>
+                                        <th>subsets</th>
+                                        <th></th>
                                         <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <% if(Categories.length > 0){ %>
                                     <% Categories.forEach(function(category) { %>
-                                    <tr data-expanded="true">
+                                    <tr data-expanded="true" id="category<%= category._id %>">
                                         <td><%= category._id %></td>
                                         <td><%= category.category %></td>
                                         <td><% category.lesson.forEach(function(les) { %>
                                             - <%= les.subject %> -
                                         <% });%></td>
                                         <td style="white-space: nowrap; width: 1%;">
-                                            <div class="tabledit-toolbar btn-toolbar" style="text-align: left;">
-                                                <div class="btn-group btn-group-sm" style="float: none;">
-                                                    <a class="tabledit-edit-button btn btn-sm btn-default" style="float: none;" href="/admin/category/<%= category._id %>">
-                                                        <span class="glyphicon glyphicon-pencil"></span>
-                                                    </a>
-                                                </div>
-                                            </div>
+                                            <a class="tabledit-edit-button btn btn-sm btn-default" style="float: none;" href="/admin/category/<%= category._id %>">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        </td>
+                                        <td style="white-space: nowrap; width: 1%;">
+                                            <button class="tabledit-edit-button btn btn-sm btn-default" id="<%= category._id %>"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>
                                     <% }); %>
@@ -226,10 +211,20 @@
 <!--/ #wrapper -->
 <!-- Scripts -->
 <% include ../partials/scripts %>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.15/js/jquery.dataTables.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-footable/3.1.4/footable.min.js"></script>
-<script src="/assets/jquery-tabledit/jquery.tabledit.min.js"></script>
+<script>
+    $(document).ready(function(){
+        <% if(Categories.length > 0){ %>
+            <% Categories.forEach(function(category) { %>
+                $("#<%= category._id %>").click(function(){
+                    $.post("/admin/categories", {id :"<%= category._id %>"} , function(result){
+                        $("#category<%= category._id %>").remove();
+                    });
+                });
+            <% }); %>
+        <% } %>
+    });
+</script>
 </body>
 
 </html>

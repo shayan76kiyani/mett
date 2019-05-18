@@ -5,13 +5,13 @@ var Practice = require('../../model/Practice');
 
 /* GET users listing. */
 router.get('/admin/practices', function(req, res) {
-    Practice.find().sort({_id:-1}).then(function(test) {
-        console.log(test);
-        if (!test) {
+    Practice.find().sort({_id:-1}).then(function(practice) {
+        console.log(practice);
+        if (!practice) {
             res.json( { status : 404 , msg : "cant find any practices" });
         }
-        if (test) {
-            res.render('admin/practice', { title: 'Practices', Tests: test });
+        if (practice) {
+            res.render('admin/practice', { title: 'Practices', Practices: practice, practice:true });
         }
     });
 });

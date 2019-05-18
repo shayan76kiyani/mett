@@ -45,7 +45,6 @@
       //Chart Js
       this.lineChartJs();
       this.barChartJs();
-      this.pieChartJs();
       this.doughnutChartJs();
       this.polarAreaChartJs();
       this.radarChartJs();
@@ -1369,72 +1368,6 @@
         responsive: true
       });
     },
-
-    pieChartJs: function() {
-      var ctx = document.getElementById("chartJsPie");
-      if ( ctx === null ) return;
-
-      var ctx3 = document.getElementById("chartJsPie").getContext("2d");
-      var data3 = {
-        labels: [
-          "Site A",
-          "Site B",
-          "Site C",
-          "Site D",
-          "Site E",
-          "Site F",
-          "Site G",
-          "Site H"
-        ],
-        datasets: [
-          {
-            data: [150,30,30,30,30,30,30, 30],
-            backgroundColor: [
-              "#5793f3",
-              "#dd4d79",
-              "#bd3b47",
-              "#dd4444",
-              "#fd9c35",
-              "#fec42c",
-              "#d4df5a",
-              "#5578c2"
-            ],
-            hoverBackgroundColor: [
-              "#5793f3",
-              "#dd4d79",
-              "#bd3b47",
-              "#dd4444",
-              "#fd9c35",
-              "#fec42c",
-              "#d4df5a",
-              "#5578c2"
-            ]
-          }]
-        };
-        var chartJsPie = new Chart(ctx3,{
-          type: "pie",
-          data: data3,
-          responsive: true,
-          options: {
-            legend: {
-              display: false
-            },
-            tooltips: {
-              mode: 'index',
-              intersect: false,
-              titleFontColor: "#000",
-              titleMarginBottom: 0,
-              backgroundColor: "rgba(255,255,255,.9)",
-              bodyFontColor: "#000",
-              borderColor: "#e9e9e9",
-              bodySpacing: 0,
-              borderWidth: 0,
-              xPadding: 10,
-              yPadding: 10,
-            },
-          }
-        });
-      },
 
     doughnutChartJs: function() {
       var ctx = document.getElementById("chartJsDoughnut");
